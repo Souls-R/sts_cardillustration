@@ -3,8 +3,8 @@ import AttackMask from "@/public/AttackMask.png"
 import AttackMask_p from "@/public/AttackMask_p.png"
 import PowerMask from "@/public/PowerMask.png"
 import PowerMask_p from "@/public/PowerMask_p.png"
-import SKillMask from "@/public/SKillMask.png"
-import SKillMask_p from "@/public/SKillMask_p.png"
+import SKillMask from "@/public/SkillMask.png"
+import SKillMask_p from "@/public/SkillMask_p.png"
 
 const AttackMask_img = new Image();
 const AttackMask_p_img = new Image();
