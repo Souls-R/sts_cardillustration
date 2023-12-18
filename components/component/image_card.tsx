@@ -143,7 +143,7 @@ function ImageCard({ image, index }: ImageCardProps) {
                                         className="inline-flex w-full justify-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 sm:ml-3 sm:w-auto"
                                         onClick={() => { crop(); setIsModalOpen(false) }}
                                     >
-                                        确定
+                                        Confirm
                                     </button>
                                     <button
                                         type="button"
@@ -151,7 +151,7 @@ function ImageCard({ image, index }: ImageCardProps) {
                                         onClick={() => setIsModalOpen(false)}
                                         ref={cancelButtonRef}
                                     >
-                                        取消
+                                        Cancel
                                     </button>
                                 </div>
                             </Dialog.Panel>
