@@ -4,7 +4,7 @@ import React, { createRef, use, useEffect, useImperativeHandle, useRef, useState
 import Image from 'next/image';
 import Cropper, { ReactCropperElement } from "react-cropper";
 import { Dialog } from '@headlessui/react'
-import { CardType  } from "@/lib/cardmask";
+import { CardType } from "@/lib/cardmask";
 interface ImageCardProps {
     image: {
         url: string;
@@ -34,10 +34,10 @@ function ImageCard({ image, index }: ImageCardProps) {
     }, []);
 
     useEffect(() => {
-        if(selectedOption === '') image.type = CardType.Unknown;
-        if(selectedOption === 'Attack') image.type = CardType.Attack;
-        if(selectedOption === 'Power') image.type = CardType.Power;
-        if(selectedOption === 'Skill') image.type = CardType.Skill;
+        if (selectedOption === '') image.type = CardType.Unknown;
+        if (selectedOption === 'Attack') image.type = CardType.Attack;
+        if (selectedOption === 'Power') image.type = CardType.Power;
+        if (selectedOption === 'Skill') image.type = CardType.Skill;
     }, [selectedOption]);
 
 
@@ -53,8 +53,8 @@ function ImageCard({ image, index }: ImageCardProps) {
         if (typeof cropperRef.current?.cropper !== "undefined") {
             image.croped = true;
             // image.cropImage = cropperRef.current?.cropper.getCroppedCanvas({width:250,height:190,imageSmoothingEnabled:true}).toDataURL();
-            image.cropImage = cropperRef.current?.cropper.getCroppedCanvas({imageSmoothingEnabled:true,imageSmoothingQuality:'high'}).toDataURL();
-            setPreviewData( image.cropImage);
+            image.cropImage = cropperRef.current?.cropper.getCroppedCanvas({ imageSmoothingEnabled: true, imageSmoothingQuality: 'high' }).toDataURL();
+            setPreviewData(image.cropImage);
         }
     }
 
@@ -64,14 +64,14 @@ function ImageCard({ image, index }: ImageCardProps) {
                 <Image
                     alt="Processed image"
                     className={
-                        (image.croped&&image.type!=CardType.Unknown)?
-                        "rounded-lg object-cover w-full aspect-[25/19] group-hover:opacity-50 transition-opacity"
-                        :"rounded-lg object-cover w-full aspect-[25/19] group-hover:opacity-50 transition-opacity ring-2 ring-red-500 ring-opacity-30"}
+                        (image.croped && image.type != CardType.Unknown) ?
+                            "rounded-lg object-cover w-full aspect-[25/19] group-hover:opacity-50 transition-opacity"
+                            : "rounded-lg object-cover w-full aspect-[25/19] group-hover:opacity-50 transition-opacity ring-2 ring-red-500 ring-opacity-30"}
                     height={190}
                     width={250}
                     src={previewData}
                     onClick={handleImageClick}
-                    
+
                 />
                 <div className="absolute bottom-0 left-0 p-2 text-white bg-black bg-opacity-50 w-full rounded-lg">
 
@@ -79,31 +79,31 @@ function ImageCard({ image, index }: ImageCardProps) {
                     <div className="grid place-items-center">
                         <form>
                             <div className="grid  grid-cols-3 gap-2 rounded-sm">
-                            <div>
-                                <input type="radio" name="option" id={image.name+'1'} value="Attack" className="peer hidden" checked={selectedOption === 'Attack'}  onChange={(e) => setSelectedOption(e.target.value)} />
-                                <label htmlFor={image.name+'1'}  className="block cursor-pointer select-none rounded-lg p-0 text-center peer-checked:bg-red-400 peer-checked:font-bold peer-checked:text-white">
-                                    Attack
-                                </label>
-                            </div>
-                            <div>
-                                <input type="radio" name="option" id={image.name+'2'} value="Power" className="peer hidden"  checked={selectedOption === 'Power'}  onChange={(e) => setSelectedOption(e.target.value)}  />
-                                <label htmlFor={image.name+'2'}  className="block cursor-pointer select-none rounded-lg p-0 text-center peer-checked:bg-blue-400 peer-checked:font-bold peer-checked:text-white">
-                                    Power
-                                </label>
-                            </div>
-                            <div>
-                                <input type="radio" name="option" id={image.name+'3'}  value="Skill" className="peer hidden"  checked={selectedOption === 'Skill'}  onChange={(e) => setSelectedOption(e.target.value)}  />
-                                <label htmlFor={image.name+'3'}  className="block cursor-pointer select-none rounded-lg p-0 text-center peer-checked:bg-purple-400 peer-checked:font-bold peer-checked:text-white">
-                                    Skill
-                                </label>
-                            </div>
-                            <div>
-                                <h3 className="font-semibold">{image.name}</h3>
-                            </div>
+                                <div>
+                                    <input type="radio" name="option" id={image.name + '1'} value="Attack" className="peer hidden" checked={selectedOption === 'Attack'} onChange={(e) => setSelectedOption(e.target.value)} />
+                                    <label htmlFor={image.name + '1'} className="block cursor-pointer select-none rounded-lg p-0 text-center peer-checked:bg-red-400 peer-checked:font-bold peer-checked:text-white">
+                                        Attack
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="option" id={image.name + '2'} value="Power" className="peer hidden" checked={selectedOption === 'Power'} onChange={(e) => setSelectedOption(e.target.value)} />
+                                    <label htmlFor={image.name + '2'} className="block cursor-pointer select-none rounded-lg p-0 text-center peer-checked:bg-blue-400 peer-checked:font-bold peer-checked:text-white">
+                                        Power
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="option" id={image.name + '3'} value="Skill" className="peer hidden" checked={selectedOption === 'Skill'} onChange={(e) => setSelectedOption(e.target.value)} />
+                                    <label htmlFor={image.name + '3'} className="block cursor-pointer select-none rounded-lg p-0 text-center peer-checked:bg-purple-400 peer-checked:font-bold peer-checked:text-white">
+                                        Skill
+                                    </label>
+                                </div>
+                                <div>
+                                    <h3 className="font-semibold">{image.name}</h3>
+                                </div>
                             </div>
                         </form>
                     </div>
-     
+
                 </div>
             </div>
 

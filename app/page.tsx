@@ -46,6 +46,9 @@ export default function Home() {
   //导出图片
   const exportImages = () => {
     setDialogOpen(true)
+    if (imageCards.length == 0) {
+      return
+    }
     const zip = new JSZip();
     imageCards.forEach((i: any) => {
       console.log(i.props.image.name, i.props.image.croped)
@@ -72,7 +75,7 @@ export default function Home() {
       const cardimgElement = document.createElement('img');
       cardimgElement.src = i.props.image.cropImage;
       const maskedImage = applyMask(cardimgElement, mask!)
-      const maskedImage_p = applyMask(cardimgElement, mask_p! , 500, 380)
+      const maskedImage_p = applyMask(cardimgElement, mask_p!, 500, 380)
       //将jpg后缀改为png
       if (i.props.image.name.endsWith('.jpg')) {
         i.props.image.name = i.props.image.name.replace('.jpg', '.png')
@@ -122,12 +125,14 @@ export default function Home() {
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                    <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                    {
-                      imageCards.filter((i: any) => !i.props.image.croped || i.props.image.type == CardType.Unknown).length == 0 ?
-                        "Export Complete" :
-                        "Export partially complete, the following images are not cropped or recognized"
-                    }
+                    <Dialog.Title as="h2" className="text-base font-semibold leading-6 text-gray-900">
+                      {
+                        imageCards.length == 0 ? "No images to export." :(
+                        imageCards.filter((i: any) => !i.props.image.croped || i.props.image.type == CardType.Unknown).length == 0 ?
+                          "Export Complete." :
+                          "Export partially complete, the following images are not cropped or recognized."
+                        )
+                      }
                     </Dialog.Title>
                     <div className="mt-2">
                       {imageCards.map((i: any) => {
@@ -161,18 +166,18 @@ export default function Home() {
           <section>
             <Card>
               <CardHeader>
-              <div className="flex items-center">
+                <div className="flex items-center">
                   <h2 className="text-xl font-semibold">Upload Images</h2>
                 </div>
               </CardHeader>
               <CardContent className="grid gap-4">
                 {/* <Label htmlFor="images">Select Images</Label>  */}
-                
+
                 <Input id="images" multiple type="file" accept="image/*" onChange={handleImageChange}
                   className='border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 hover:border-indigo-500 block w-full'
                 />
 
-                
+
               </CardContent>
             </Card>
           </section>

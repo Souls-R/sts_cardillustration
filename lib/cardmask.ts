@@ -46,7 +46,7 @@ Promise.all(promises).then((dataUrls) => {
     PowerMask_p_img.src = dataUrls[3];
     SkillMask_img.src = dataUrls[4];
     SkillMask_p_img.src = dataUrls[5];
-    
+
 });
 
 
