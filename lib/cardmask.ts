@@ -1,3 +1,4 @@
+"use client"
 import AttackMask from "@/public/AttackMask.png"
 import AttackMask_p from "@/public/AttackMask_p.png"
 import PowerMask from "@/public/PowerMask.png"
@@ -9,8 +10,8 @@ const AttackMask_img = new Image();
 const AttackMask_p_img = new Image();
 const PowerMask_img = new Image();
 const PowerMask_p_img = new Image();
-const SKillMask_img = new Image();
-const SKillMask_p_img = new Image();
+const SkillMask_img = new Image();
+const SkillMask_p_img = new Image();
 
 function toDataURL(url: string | URL): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -43,8 +44,8 @@ Promise.all(promises).then((dataUrls) => {
     AttackMask_p_img.src = dataUrls[1];
     PowerMask_img.src = dataUrls[2];
     PowerMask_p_img.src = dataUrls[3];
-    SKillMask_img.src = dataUrls[4];
-    SKillMask_p_img.src = dataUrls[5];
+    SkillMask_img.src = dataUrls[4];
+    SkillMask_p_img.src = dataUrls[5];
     
 });
 
@@ -54,6 +55,16 @@ export const CardMask = {
     AttackMask_p: AttackMask_p_img,
     PowerMask: PowerMask_img,
     PowerMask_p: PowerMask_p_img,
-    SKillMask: SKillMask_img,
-    SKillMask_p: SKillMask_p_img
+    SkillMask: SkillMask_img,
+    SkillMask_p: SkillMask_p_img
+}
+
+
+//创建三种卡牌的枚举类型
+
+export enum CardType {
+    Attack,
+    Power,
+    Skill,
+    Unknown
 }
