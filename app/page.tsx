@@ -4,12 +4,12 @@ import { CardHeader, CardContent, Card } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ImageCard from "@/components/component/image_card"
 import JSZip from "jszip"
 import { saveAs } from 'file-saver';
 import { Dialog } from "@headlessui/react"
-import { CardMask, CardType } from "@/lib/cardmask"
+import { CardMask, CardType, initCardMask } from "@/lib/cardmask"
 
 
 
@@ -17,6 +17,7 @@ export default function Home() {
   const [isDialogOpen, setDialogOpen] = useState(false);
   const [imageCards, setImageCards] = useState([]);
 
+  useEffect(() => {initCardMask()},[]);
   //文件选择
   const handleImageChange = (e: any) => {
     const files = Array.from(e.target.files);
