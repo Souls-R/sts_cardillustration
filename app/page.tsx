@@ -10,7 +10,7 @@ import JSZip from "jszip"
 import { saveAs } from 'file-saver';
 import { Dialog } from "@headlessui/react"
 import { CardMask, CardType, initCardMask } from "@/lib/cardmask"
-
+import { FaFileUpload, FaGithub } from "react-icons/fa";
 
 
 export default function Home() {
@@ -160,8 +160,11 @@ export default function Home() {
         </Dialog>
       }
       <div className="min-h-screen p-6 sm:p-10 bg-white shadow rounded-lg">
-        <header className="flex items-center justify-between pb-6 border-b border-gray-200 mb-4">
+        <header className="flex items-center pb-6 border-b border-gray-200 mb-4">
           <h1 className="text-2xl font-semibold">STS Card Illustration Gen</h1>
+          <a href="https://github.com/Souls-R/sts_cardillustration" target="_blank" rel="noopener noreferrer">
+          <FaGithub className="mx-4 text-2xl font-semibold hover:cursor-pointer" />
+          </a>
         </header>
         <main className="grid gap-8">
           <section>
