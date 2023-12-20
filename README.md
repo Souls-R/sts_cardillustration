@@ -1,5 +1,7 @@
 # STS Card Illustration
 
+![dashboard](readme_image/dashboard.png)
+
 This tool is designed to craft card illustrations specifically tailored for Slay the Spire mods.
 
 It has been developed for the [ElainaInSpire](https://github.com/fe11n/ElainaInSpire) Mod, and welcome to play the pre-release version of this mod.
@@ -10,6 +12,10 @@ The tool will crop and resize your card illustration to the correct size: 250x19
 
 It will also use the mask to create the correct border for your card.
 
+## Features
+- Client-side processing
+- Crop ratio restriction(25:19)
+- Mask with card type
 
 ## Usage
 1. Upload
