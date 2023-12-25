@@ -77,9 +77,10 @@ export default function Home() {
       cardimgElement.src = i.props.image.cropImage;
       const maskedImage = applyMask(cardimgElement, mask!)
       const maskedImage_p = applyMask(cardimgElement, mask_p!, 500, 380)
-      //将jpg后缀改为png
-      if (i.props.image.name.endsWith('.jpg')) {
-        i.props.image.name = i.props.image.name.replace('.jpg', '.png')
+      //将jpg/JPG/PNG后缀改为png
+      if (i.props.image.name.endsWith('.JPG') || i.props.image.name.endsWith('.jpg') 
+      || i.props.image.name.endsWith('.PNG')) {
+        i.props.image.name = i.props.image.name.replace(/\.jpg|\.JPG|\.PNG/, '.png')
       }
       zip.file(i.props.image.name.replace('.png', '_p.png'), maskedImage_p.split(',')[1], { base64: true });
       zip.file(i.props.image.name, maskedImage.split(',')[1], { base64: true });
