@@ -137,8 +137,8 @@ export default function Home() {
     const ctx = canvas.getContext('2d');
       canvas.width = 128;
       canvas.height = 128;
-      //将图片缩放到96*96，然后绘制到canvas中心
-      ctx?.drawImage(image, 16, 16, 96, 96);
+      //将图片缩放到64*64，然后绘制到canvas中心
+      ctx?.drawImage(image, 32, 32, 64, 64);
       const cardImageData = ctx!.getImageData(0, 0, canvas.width, canvas.height);
       ctx?.putImageData(cardImageData, 0, 0);
       return canvas.toDataURL();
@@ -149,7 +149,7 @@ export default function Home() {
     const ctx = canvas.getContext('2d');
       canvas.width = 32;
       canvas.height = 32;
-      //将图片缩放到96*96，然后绘制到canvas中心
+      //将图片缩放到32*32，然后绘制到canvas中心
       ctx?.drawImage(image, 4, 4, 24, 24);
       const cardImageData = ctx!.getImageData(0, 0, canvas.width, canvas.height);
       ctx?.putImageData(cardImageData, 0, 0);
