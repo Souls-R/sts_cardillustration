@@ -132,7 +132,7 @@ export default function Home() {
     return canvas.toDataURL();
   }
 
-  const applyPowerIconCrop = (image: CanvasImageSource) => {
+  const applyRelicIconCrop = (image: CanvasImageSource) => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
       canvas.width = 128;
@@ -144,7 +144,7 @@ export default function Home() {
       return canvas.toDataURL();
   }
 
-  const applyRelicIconCrop = (image: CanvasImageSource) => {
+  const applyPowerIconCrop = (image: CanvasImageSource) => {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
       canvas.width = 32;
