@@ -4,6 +4,7 @@ import React, { createRef, use, useEffect, useImperativeHandle, useRef, useState
 import Image from 'next/image';
 import Cropper, { ReactCropperElement } from "react-cropper";
 import { Dialog } from '@headlessui/react'
+import { ToastContainer, toast } from 'react-toastify';
 import { CardType } from "@/lib/cardmask";
 interface ImageCardProps {
     image: {
@@ -22,6 +23,10 @@ function ImageCard({ image, index }: ImageCardProps) {
     const cancelButtonRef = useRef(null)
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleImageClick = () => {
+        if (image.type == CardType.Unknown){
+            toast.error('Please select a type first!');
+            return; 
+        }
         setIsModalOpen(true);
     };
 
@@ -34,10 +39,13 @@ function ImageCard({ image, index }: ImageCardProps) {
     }, []);
 
     useEffect(() => {
+        image.croped = false;
         if (selectedOption === '') image.type = CardType.Unknown;
         if (selectedOption === 'Attack') image.type = CardType.Attack;
         if (selectedOption === 'Power') image.type = CardType.Power;
         if (selectedOption === 'Skill') image.type = CardType.Skill;
+        if (selectedOption === 'PowerIcon') image.type = CardType.PowerIcon;
+        if (selectedOption === 'RelicIcon') image.type = CardType.RelicIcon;
     }, [selectedOption]);
 
 
@@ -64,7 +72,7 @@ function ImageCard({ image, index }: ImageCardProps) {
                 <Image
                     alt="Processed image"
                     className={
-                        (image.croped && image.type != CardType.Unknown) ?
+                        (image.croped) ?
                             "rounded-lg object-cover w-full aspect-[25/19] group-hover:opacity-50 transition-opacity"
                             : "rounded-lg object-cover w-full aspect-[25/19] group-hover:opacity-50 transition-opacity ring-2 ring-red-500 ring-opacity-30"}
                     height={190}
@@ -76,8 +84,24 @@ function ImageCard({ image, index }: ImageCardProps) {
                 <div className="absolute bottom-0 left-0 p-2 text-white bg-black bg-opacity-50 w-full rounded-lg">
 
                     {/* 单选框*/}
-                    <div className="grid place-items-center">
+                    <div className="grid">
                         <form>
+                            <div className="grid  grid-cols-2 gap-2 rounded-sm">
+                                <div>
+                                    <input type="radio" name="option" id={image.name + '4'} value="PowerIcon" className="peer hidden" checked={selectedOption === 'PowerIcon'} onChange={(e) => setSelectedOption(e.target.value)} />
+                                    <label htmlFor={image.name + '4'} className="block cursor-pointer select-none rounded-lg p-0 text-center peer-checked:bg-yellow-400 peer-checked:font-bold peer-checked:text-white">
+                                        Power Icon
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="option" id={image.name + '5'} value="RelicIcon" className="peer hidden" checked={selectedOption === 'RelicIcon'} onChange={(e) => setSelectedOption(e.target.value)} />
+                                    <label htmlFor={image.name + '5'} className="block cursor-pointer select-none rounded-lg p-0 text-center peer-checked:bg-green-400 peer-checked:font-bold peer-checked:text-white">
+                                        Relic Icon
+                                    </label>
+                                </div>
+                            </div>
+
+
                             <div className="grid  grid-cols-3 gap-2 rounded-sm">
                                 <div>
                                     <input type="radio" name="option" id={image.name + '1'} value="Attack" className="peer hidden" checked={selectedOption === 'Attack'} onChange={(e) => setSelectedOption(e.target.value)} />
@@ -117,7 +141,7 @@ function ImageCard({ image, index }: ImageCardProps) {
                                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                                         <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                                            Cropper Image
+                                            Crop Image
                                         </Dialog.Title>
                                         <div className="mt-2">
                                             <Cropper
@@ -125,10 +149,10 @@ function ImageCard({ image, index }: ImageCardProps) {
                                                 zoomTo={0.1}
                                                 dragMode="move"
                                                 src={image.url}
-                                                aspectRatio={25 / 19}
+                                                aspectRatio={(image.type==CardType.PowerIcon||image.type==CardType.RelicIcon)?(1/1):(25 / 19)}
                                                 viewMode={1}
-                                                minCropBoxHeight={19}
-                                                minCropBoxWidth={25}
+                                                minCropBoxHeight={(image.type==CardType.PowerIcon||image.type==CardType.RelicIcon)?16:19}
+                                                minCropBoxWidth={(image.type==CardType.PowerIcon||image.type==CardType.RelicIcon)?16:25}
                                                 background={false}
                                                 autoCropArea={1}
                                                 guides={true}

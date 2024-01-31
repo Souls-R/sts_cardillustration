@@ -10,8 +10,10 @@ import JSZip from "jszip"
 import { saveAs } from 'file-saver';
 import { Dialog } from "@headlessui/react"
 import { CardMask, CardType, initCardMask } from "@/lib/cardmask"
-import { FaFileUpload, FaGithub } from "react-icons/fa";
-
+import { FaFileUpload, FaGithub, FaDownload } from "react-icons/fa";
+import { GoWorkflow } from "react-icons/go";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -57,6 +59,22 @@ export default function Home() {
         //跳过未裁剪的图片
         return
       }
+
+      if (i.props.image.type == CardType.PowerIcon) {
+        const powerIcon = document.createElement('img');
+        powerIcon.src = i.props.image.cropImage;
+        const powerIconCroped = applyPowerIconCrop(powerIcon);
+        zip.file(i.props.image.name, powerIconCroped.split(',')[1], { base64: true });
+        return
+      }
+      if (i.props.image.type == CardType.RelicIcon) {
+        const relicIcon = document.createElement('img');
+        relicIcon.src = i.props.image.cropImage;
+        const relicIconCroped = applyRelicIconCrop(relicIcon);
+        zip.file(i.props.image.name, relicIconCroped.split(',')[1], { base64: true });
+        return
+      }
+
       //挑选mask
       let mask;
       let mask_p;
@@ -84,8 +102,8 @@ export default function Home() {
       }
       zip.file(i.props.image.name.replace('.png', '_p.png'), maskedImage_p.split(',')[1], { base64: true });
       zip.file(i.props.image.name, maskedImage.split(',')[1], { base64: true });
-
     })
+
     zip.generateAsync({ type: 'blob' })
       .then(blob => {
         saveAs(blob, 'images.zip');
@@ -112,6 +130,30 @@ export default function Home() {
     }
     ctx?.putImageData(cardImageData, 0, 0);
     return canvas.toDataURL();
+  }
+
+  const applyPowerIconCrop = (image: CanvasImageSource) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+      canvas.width = 128;
+      canvas.height = 128;
+      //将图片缩放到96*96，然后绘制到canvas中心
+      ctx?.drawImage(image, 16, 16, 96, 96);
+      const cardImageData = ctx!.getImageData(0, 0, canvas.width, canvas.height);
+      ctx?.putImageData(cardImageData, 0, 0);
+      return canvas.toDataURL();
+  }
+
+  const applyRelicIconCrop = (image: CanvasImageSource) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+      canvas.width = 32;
+      canvas.height = 32;
+      //将图片缩放到96*96，然后绘制到canvas中心
+      ctx?.drawImage(image, 4, 4, 24, 24);
+      const cardImageData = ctx!.getImageData(0, 0, canvas.width, canvas.height);
+      ctx?.putImageData(cardImageData, 0, 0);
+      return canvas.toDataURL();
   }
 
 
@@ -161,6 +203,7 @@ export default function Home() {
         </Dialog>
       }
       <div className="min-h-screen p-6 sm:p-10 bg-white shadow rounded-lg">
+      <ToastContainer />
         <header className="flex items-center pb-6 border-b border-gray-200 mb-4">
           <h1 className="text-2xl font-semibold">STS Card Illustration Gen</h1>
           <a href="https://github.com/Souls-R/sts_cardillustration" target="_blank" rel="noopener noreferrer">
@@ -173,6 +216,7 @@ export default function Home() {
               <CardHeader>
                 <div className="flex items-center">
                   <h2 className="text-xl font-semibold">Upload Images</h2>
+                  <FaFileUpload className="ml-2 h-4 w-4" />
                 </div>
               </CardHeader>
               <CardContent className="grid gap-4">
@@ -190,8 +234,8 @@ export default function Home() {
             <Card>
               <CardHeader>
                 <div className="flex items-center">
-                  <h2 className="text-xl font-semibold">Processed Images</h2>
-                  <WorkflowIcon className="ml-2 h-4 w-4" />
+                  <h2 className="text-xl font-semibold">Process Images</h2>
+                  <GoWorkflow className="ml-2 h-4 w-4" />
                 </div>
               </CardHeader>
               <CardContent className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -205,7 +249,7 @@ export default function Home() {
           <section>
             <Button variant="outline" onClick={exportImages}>
               Export Images
-              <DownloadIcon className="ml-2 h-4 w-4" />
+              <FaDownload className="ml-2 h-4 w-4" />
             </Button>
           </section>
         </main>
@@ -214,46 +258,3 @@ export default function Home() {
   )
 }
 
-
-function WorkflowIcon(props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="8" height="8" x="3" y="3" rx="2" />
-      <path d="M7 11v4a2 2 0 0 0 2 2h4" />
-      <rect width="8" height="8" x="13" y="13" rx="2" />
-    </svg>
-  )
-}
-
-
-function DownloadIcon(props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-      <polyline points="7 10 12 15 17 10" />
-      <line x1="12" x2="12" y1="15" y2="3" />
-    </svg>
-  )
-}

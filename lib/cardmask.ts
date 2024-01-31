@@ -85,5 +85,7 @@ export enum CardType {
     Attack,
     Power,
     Skill,
+    PowerIcon,
+    RelicIcon,
     Unknown
 }
