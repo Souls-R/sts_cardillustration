@@ -26,7 +26,7 @@ It will also use the mask to create the correct border for your card.
 - [x] Crop and resize
 - [x] Mask with card type
 - [ ] Customize mask
-- [ ] relic and power icon
+- [x] relic and power icon
 - [ ] card collection
 - [ ] deck preview
 
