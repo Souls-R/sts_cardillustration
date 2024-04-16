@@ -6,7 +6,7 @@ This tool is designed to craft card illustrations specifically tailored for Slay
 
 It has been developed for the [ElainaInSpire](https://github.com/fe11n/ElainaInSpire) Mod, and welcome to play the pre-release version of this mod.
 
-You can access the tool through https://stscard.noiatrio.site/ or https://sts-cardillustration.vercel.app/, with no need for installation.
+You can access the tool through https://sts-cardillustration.vercel.app/, with no need for installation.
 
 The tool will crop and resize your card illustration to the correct size: 250x190 (512x) and 500x380 (1024x). 
 
